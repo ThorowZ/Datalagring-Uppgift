@@ -12,6 +12,7 @@ namespace Data.Context
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+            //optionsBuilder.EnableServiceProviderCaching();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

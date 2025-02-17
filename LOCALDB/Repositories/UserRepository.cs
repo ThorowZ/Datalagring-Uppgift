@@ -1,11 +1,8 @@
-﻿using Data.Entities;
+﻿using Data.Context;
+using Data.Entities;
 using Data.Interface;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Data.Repositories
 {
@@ -112,6 +109,27 @@ namespace Data.Repositories
                 return null!;
 
             }
+
+        }
+
+        public Task<bool> DeleteAsync(Expression<Func<UserEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserEntity> GetById(Expression<Func<UserEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<UserEntity>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserEntity> UpdateAsync(Expression<Func<UserEntity, bool>> expression)
+        {
+            throw new NotImplementedException();
         }
     }
 }
