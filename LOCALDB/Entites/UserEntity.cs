@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Data.Entites;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Entities
@@ -11,6 +12,7 @@ namespace Data.Entities
     {
 
         [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -25,7 +27,9 @@ namespace Data.Entities
         [Column(TypeName = "varchar(150)")]
         public string Email { get; set; } = null!;
 
-        [Column(TypeName = "varchar(11)")]
+        [Column(TypeName = "varchar(15)")]
         public string? PhoneNumber { get; set; }
+
+        public ICollection<ProjectEntity> Project { get; set; } = new List<ProjectEntity>();
     }
 }

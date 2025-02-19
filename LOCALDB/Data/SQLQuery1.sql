@@ -13,14 +13,17 @@ IF OBJECT_ID('Users', 'U') is null
 					FirstName NVARCHAR(50) not null,
 					LastName NVARCHAR(50) not null,
 					Email NVARCHAR(100) not null,
-					PhoneNumbe NVARCHAR(15) null
+					PhoneNumber NVARCHAR(15) null
 					)
 
 INSERT INTO Users (FirstName, LastName, Email, PhoneNumber) 
 VALUES (@FirstName, @LastName, @Email, @PhoneNumber)
 
 SELECT * FROM Users Where Email = ''
-CREATE TABLE Projects 
+
+IF OBJECT_ID('Project', 'P') is null
+
+CREATE TABLE Project 
 (
 id int not null identity primary key,
 Name NVARCHAR(150) not null,
@@ -28,6 +31,5 @@ Description NVARCHAR(max),
 StartDate date not null,
 EndDate date,
 StatusId int not null,
-CustomerId int not null,
 UserId int not null
 )

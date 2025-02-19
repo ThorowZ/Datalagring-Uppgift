@@ -15,24 +15,24 @@ namespace Data.Interface
 
         public Task<UserEntity> UpdateAsync(Expression<Func<UserEntity, bool>> expression);
 
-        public async Task<UserEntity> CreateAsync(UserEntity userEntity)
-        {
-            if (userEntity == null)
-                return null!;
+        //public async Task<UserEntity> CreateAsync(UserEntity userEntity)
+        //{
+        //    if (userEntity == null)
+        //        return null!;
 
-            try
-            {
-                await _context.User.AddAsync(userEntity);
-                await _context.SaveChangeAsync();
-                return userEntity;
-            }
+        //    try
+        //    {
+        //        //await _context.User.AddAsync(userEntity);
+        //        //await _context.SaveChangeAsync();
+        //        //return userEntity;
+        //    }
 
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error Creating User Entity :: {ex.Message}");
-                return null!;
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Error Creating User Entity :: {ex.Message}");
+        //        return null!;
+        //    }
+        //}
 
 
     }

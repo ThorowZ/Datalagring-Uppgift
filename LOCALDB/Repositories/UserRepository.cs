@@ -13,7 +13,7 @@ namespace Data.Repositories
         private readonly string _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\C-Projects\LOCALDB\LOCALDB\Data\database.mdf;Integrated Security=True;Connect Timeout=30";
         private readonly SqlConnection _connection;
 
-        public UserRepository() 
+        public UserRepository()
         {
             CreateUserTableIfNotExists();
         }
