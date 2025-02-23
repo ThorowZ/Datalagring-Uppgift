@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace Data.Interface
 {
-    public interface IUserRepositories
+    public interface IUserRepository
     {
         Task<bool> DeleteAsync(Expression<Func<UserEntity, bool>> expression);
 

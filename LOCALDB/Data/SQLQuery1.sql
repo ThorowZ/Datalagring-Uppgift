@@ -21,7 +21,7 @@ VALUES (@FirstName, @LastName, @Email, @PhoneNumber)
 
 SELECT * FROM Users Where Email = ''
 
-IF OBJECT_ID('Project', 'P') is null
+IF OBJECT_ID('Project', 'U') is null
 
 CREATE TABLE Project 
 (
@@ -32,4 +32,14 @@ StartDate date not null,
 EndDate date,
 StatusId int not null,
 UserId int not null
+)
+
+
+
+IF OBJECT_ID('StatusTypes', 'U') IS NULL
+
+CREATE TABLE StatusTypes 
+(
+Id INT IDENTITY(1,1) PRIMARY KEY,
+StatusName NVARCHAR(100) NOT NULL
 )

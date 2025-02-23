@@ -5,11 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Context
 {
-    public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
+    public class DataContext : DbContext
     {
+        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+        //public DataContext() { }
         public DbSet<UserEntity> Users { get; set; } = null!;
 
         public DbSet<ProjectEntity> Projects { get; set; } = null!;
+
+        public DbSet<StatusTypesEntity> StatusTypes { get; set; } = null!;
+
+        //public Dbset<CustomerEntity> Customer { get; set; } = null!;
 
 
 
@@ -17,21 +24,29 @@ namespace Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\C-Projects\\LOCALDB\\LOCALDB\\Data\\database.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True");
-            //optionsBuilder.EnableServiceProviderCaching();
+            //if (!optionsBuilder.IsConfigured && string.IsNullOrEmpty(optionsBuilder.Options.ContextType.Name))
+            //{
+            //   optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\C-Projects\\LOCALDB\\LOCALDB\\Data\\MSSQLLocalDB.mdf;Integrated Security=True");
+            //}
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectEntity>()
-        .HasKey(p => new { p.Id, p.UserId });
+        .HasKey(p => p.Id);
 
             modelBuilder.Entity<ProjectEntity>()
                 .HasOne(p => p.User)
                 .WithMany(u => u.Project)
                 .HasForeignKey(p => p.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectEntity>()
+              .HasOne(p => p.Status)
+              .WithMany(s => s.Projects)
+              .HasForeignKey(p => p.StatusId)
+              .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

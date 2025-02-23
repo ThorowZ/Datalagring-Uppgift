@@ -2,8 +2,10 @@
 using Data.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
-namespace Data.Entites
+namespace Data.Entities
+
 {
     public class ProjectEntity
     {
@@ -11,8 +13,7 @@ namespace Data.Entites
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+
 
         [Required]
         [Column(TypeName = "nvarchar(150)")]
@@ -23,16 +24,22 @@ namespace Data.Entites
 
         [Required]
 
-        public string StartDate { get; set; } = null!;
+        [Column(TypeName = "date")]
+        public DateTime StartDate { get; set; }
 
-        public string EndDate { get; set; } = null!;
+        [Column(TypeName = "date")]
+        public DateTime? EndDate { get; set; }
 
-        [Required]
-        public string StatusId { get; set; } = null!;
-
-
-
+        
+        [ForeignKey("User")]
+        public int UserId { get; set; }
         public UserEntity User { get; set; } = null!;
+
+
+        
+        [ForeignKey("Status")]
+        public int StatusId { get; set; }
+        public StatusTypesEntity Status { get; set; } = null!;
 
 
     }

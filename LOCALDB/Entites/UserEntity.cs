@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Data.Entites;
+using System.Text.Json.Serialization;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Entities
@@ -30,6 +31,7 @@ namespace Data.Entities
         [Column(TypeName = "varchar(15)")]
         public string? PhoneNumber { get; set; }
 
+        [JsonIgnore]
         public ICollection<ProjectEntity> Project { get; set; } = new List<ProjectEntity>();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Data.Entities;
 
-namespace Business.Services
+namespace Data.Interface
 {
     public interface IUserService
     {
