@@ -19,6 +19,7 @@ services.AddScoped<IUserService, UserService>();
 services.AddScoped<IProjectService, ProjectService>();
 services.AddScoped<IStatusTypesService, StatusTypesService>();
 
+
 var provider = services.BuildServiceProvider();
 var context = provider.GetRequiredService<DataContext>();
 

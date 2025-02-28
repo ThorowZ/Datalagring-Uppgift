@@ -1,16 +1,19 @@
 ﻿using Business.Dtos;
+using Business.Factories;
 using Business.Models;
 using Data.Context;
 using Data.Entities;
 using Data.Interface;
+using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services
 {
-    public class ProjectService(DataContext context, IStatusTypesService statusService) : IProjectService
+    public class ProjectService(DataContext context, IStatusTypesService statusService, IProjectRepositories projectRepositories) : IProjectService
     {
         private readonly DataContext _context = context;
         private readonly IStatusTypesService _statusService = statusService;
+        private readonly IProjectRepositories _projectRepositories = projectRepositories;
 
         public ProjectEntity CreateProject(ProjectRegistrationForm form)
         {
@@ -45,6 +48,51 @@ namespace Business.Services
             _context.SaveChanges();
 
             return projectEntity;
+        }
+
+        public async Task<Project> CreateProjectAsync(ProjectRegistrationForm form)
+        {
+            var entity = await _projectRepositories.GetAsync(x => x.ProjectName == form.ProjectName);
+            entity ??= await _projectRepositories.CreateAsync(ProjectFactory.Create(form));
+
+                return ProjectFactory.Create(entity);
+        }
+
+        public async Task<IEnumerable<Project>> GetAllProjectAsync()
+        {
+            var entities = await _projectRepositories.GetAllAsync();
+            var projects = entities.Select(ProjectFactory.Create);
+            return projects ?? [];
+        }
+
+        public async Task<Project> GetProjectByIdAsync(int id)
+        {
+            var entity = await _projectRepositories.GetAsync(x => x.Id == id);
+            var project = ProjectFactory.Create(entity);
+            return project ?? null!;
+
+        }
+
+        public async Task<Project> GetProjectByNameAsync(string projectName)
+        {
+            var entity = await _projectRepositories.GetAsync(x => x.ProjectName == projectName);
+            var project = ProjectFactory.Create(entity);
+            return project ?? null!;
+
+        }
+
+        public async Task<Project> UpdateProjectAsync(ProjectUpdateForm form)
+        {
+            var entity = await _projectRepositories.UpdateAsync(ProjectFactory.Create(form));
+            var project = ProjectFactory.Create(entity);
+            return project ?? null!;
+        }
+
+
+        public async Task<bool> DeleteProjectAsync(int id)
+        {
+            var result = await _projectRepositories.DeleteAsync(x => x.Id == id);
+            return result;
         }
 
 

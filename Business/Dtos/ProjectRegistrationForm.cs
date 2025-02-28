@@ -8,8 +8,6 @@ namespace Business.Dtos
 
         public string Description { get; set; } = null!;
 
-        public string StatusType { get; set; } = null!;
-
         [Column(TypeName = "date")]
         public DateTime StartDate { get; set; }
 

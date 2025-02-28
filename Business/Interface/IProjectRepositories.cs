@@ -14,8 +14,7 @@ namespace Data.Repositories;
 
     Task<ProjectEntity> UpdateAsync(ProjectEntity updatedEntity);
 
-    Task<ProjectEntity> DeleteAsync(Expression<Func<ProjectEntity, bool>> expression);
-
+    Task<bool> DeleteAsync(Expression<Func<ProjectEntity, bool>> expression);
 
 }
 
